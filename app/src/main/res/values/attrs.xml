@@ -4,5 +4,8 @@
         <attr name="first_ball_color" format="reference" />
         <attr name="second_ball_color" format="reference" />
         <attr name="third_ball_color" format="reference" />
+        <attr name="ball_radius" format="float" />
+        <attr name="pane_height" format="float" />
+        <attr name="distance_between" format="float" />
     </declare-styleable>
 </resources>

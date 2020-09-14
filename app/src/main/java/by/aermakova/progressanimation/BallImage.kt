@@ -1,22 +1,19 @@
 package by.aermakova.progressanimation
 
 import android.animation.ValueAnimator
-import android.graphics.Canvas
-import android.graphics.ColorFilter
-import android.graphics.Paint
-import android.graphics.PixelFormat
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.view.View
 
 class BallImage(
     private val radius: Float,
     private val centerX: Float,
-    private var centerY: Float,
-    var color: Int,
-    private val delay: Long
+    private var centerY: Float
 ) :
     Drawable() {
 
+    var color: Int = Color.BLUE
+    var delay: Long = 0
     private val moveDuration = 450L
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private lateinit var animator: ValueAnimator

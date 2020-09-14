@@ -24,9 +24,9 @@ class BallsProgressIndicator :
     private var thirdBallColor = Color.BLUE
 
     private var ballRadius = 20f
-    private var distance = 100f
-    private var paneHeight = 250
-    private var paneWidth = ballRadius * 6 + distance * 2
+    private var distanceBetween = 100f
+    private var paneHeight = 250f
+    private var paneWidth = ballRadius * 6 + distanceBetween * 2
 
     private lateinit var firstBall: BallImage
     private lateinit var secondBall: BallImage
@@ -49,6 +49,12 @@ class BallsProgressIndicator :
                         getInt(R.styleable.BallsProgressIndicator_second_ball_color, Color.YELLOW)
                     thirdBallColor =
                         getInt(R.styleable.BallsProgressIndicator_third_ball_color, Color.BLUE)
+                    ballRadius =
+                        getFloat(R.styleable.BallsProgressIndicator_ball_radius, 20f)
+                    distanceBetween =
+                        getFloat(R.styleable.BallsProgressIndicator_distance_between, 100f)
+                    paneHeight =
+                        getFloat(R.styleable.BallsProgressIndicator_pane_height, 250f)
                 }
             } finally {
                 typedArray.recycle()
@@ -59,22 +65,25 @@ class BallsProgressIndicator :
 
     private fun initBalls() {
         firstBall =
-            BallImage(ballRadius, ballRadius, (paneHeight - ballRadius), firstBallColor, 300L)
+            BallImage(ballRadius, ballRadius, (paneHeight - ballRadius)).apply {
+                color = firstBallColor
+                delay = 300L
+            }
         secondBall =
-            BallImage(ballRadius, (paneWidth / 2), (paneHeight - ballRadius), secondBallColor, 0L)
-        thirdBall = BallImage(
-            ballRadius,
-            (paneWidth - ballRadius),
-            (paneHeight - ballRadius),
-            thirdBallColor,
-            150L
-        )
+            BallImage(ballRadius, (paneWidth / 2), (paneHeight - ballRadius)).apply {
+                color = secondBallColor
+                delay = 0L
+            }
+        thirdBall =
+            BallImage(ballRadius, (paneWidth - ballRadius), (paneHeight - ballRadius)).apply {
+                color = thirdBallColor
+                delay = 150L
+            }
         balls = arrayOf(firstBall, secondBall, thirdBall)
     }
 
     override fun onDraw(canvas: Canvas) {
         drawBalls(canvas, balls)
-        super.onDraw(canvas)
     }
 
     private fun drawBalls(canvas: Canvas, balls: Array<BallImage>) {
