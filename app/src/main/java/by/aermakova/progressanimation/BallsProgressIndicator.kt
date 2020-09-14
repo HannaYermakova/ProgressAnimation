@@ -28,9 +28,6 @@ class BallsProgressIndicator :
     private var paneHeight = 250f
     private var paneWidth = ballRadius * 6 + distanceBetween * 2
 
-    private lateinit var firstBall: BallImage
-    private lateinit var secondBall: BallImage
-    private lateinit var thirdBall: BallImage
     private lateinit var balls: Array<BallImage>
 
     private fun init(context: Context) {
@@ -64,22 +61,20 @@ class BallsProgressIndicator :
     }
 
     private fun initBalls() {
-        firstBall =
+        balls = arrayOf(
             BallImage(ballRadius, ballRadius, (paneHeight - ballRadius)).apply {
                 color = firstBallColor
                 delay = 300L
-            }
-        secondBall =
+            },
             BallImage(ballRadius, (paneWidth / 2), (paneHeight - ballRadius)).apply {
                 color = secondBallColor
                 delay = 0L
-            }
-        thirdBall =
+            },
             BallImage(ballRadius, (paneWidth - ballRadius), (paneHeight - ballRadius)).apply {
                 color = thirdBallColor
                 delay = 150L
             }
-        balls = arrayOf(firstBall, secondBall, thirdBall)
+        )
     }
 
     override fun onDraw(canvas: Canvas) {
