@@ -46,7 +46,8 @@ class BallImage(
         animator.cancel()
     }
 
-    override fun setAlpha(p0: Int) {
+    override fun setAlpha(alpha: Int) {
+
     }
 
     override fun getOpacity(): Int = PixelFormat.OPAQUE

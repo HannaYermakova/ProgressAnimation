@@ -97,8 +97,8 @@ class BallsProgressIndicator :
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        visibility = VISIBLE
         balls.forEach { ball ->
-            ball.setVisible(true, false)
             ball.startAnimation(this, (paneHeight - ballRadius), ballRadius)
         }
     }
@@ -106,8 +106,8 @@ class BallsProgressIndicator :
     override fun onDetachedFromWindow() {
         balls.forEach { ball ->
             ball.stopAnimation()
-            ball.setVisible(false, false)
         }
+        visibility = GONE
         super.onDetachedFromWindow()
     }
 }
