@@ -2,28 +2,28 @@ package by.aermakova.progressanimation
 
 import android.animation.ValueAnimator
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 
 class BallImage(
     private val radius: Float,
     private val centerX: Float,
     private var centerY: Float
-) :
-    Drawable() {
+) {
 
     var color: Int = Color.BLUE
+        set(value) {
+            field = value
+            paint.color = value
+        }
     var delay: Long = 0
     private val moveDuration = 450L
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+    }
     private lateinit var animator: ValueAnimator
 
-    init {
-        paint.style = Paint.Style.FILL
-    }
-
-    override fun draw(canvas: Canvas) {
-        paint.color = color
+    fun draw(canvas: Canvas) {
         canvas.drawCircle(centerX, centerY, radius, paint)
     }
 
@@ -32,6 +32,7 @@ class BallImage(
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             duration = moveDuration
+            interpolator = AccelerateDecelerateInterpolator()
             startDelay = delay
             addUpdateListener { valueAnimator ->
                 centerY = (valueAnimator.animatedValue as Float)
@@ -44,14 +45,5 @@ class BallImage(
 
     fun stopAnimation() {
         animator.cancel()
-    }
-
-    override fun setAlpha(alpha: Int) {
-
-    }
-
-    override fun getOpacity(): Int = PixelFormat.OPAQUE
-
-    override fun setColorFilter(p0: ColorFilter?) {
     }
 }

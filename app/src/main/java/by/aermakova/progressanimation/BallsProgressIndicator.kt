@@ -5,19 +5,14 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.Nullable
 
 
-class BallsProgressIndicator :
-    View {
-
-    constructor(context: Context) : super(context) {
-        init(context)
-    }
-
-    constructor(context: Context, @Nullable attrs: AttributeSet?) : super(context, attrs) {
-        init(context, attrs)
-    }
+class BallsProgressIndicator @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) :
+    View(context, attrs) {
 
     private var firstBallColor = Color.RED
     private var secondBallColor = Color.YELLOW
@@ -30,11 +25,7 @@ class BallsProgressIndicator :
 
     private lateinit var balls: Array<BallImage>
 
-    private fun init(context: Context) {
-        initBalls()
-    }
-
-    private fun init(context: Context, attrs: AttributeSet?) {
+    init {
         attrs?.let {
             val typedArray =
                 context.obtainStyledAttributes(attrs, R.styleable.BallsProgressIndicator, 0, 0)
@@ -47,11 +38,21 @@ class BallsProgressIndicator :
                     thirdBallColor =
                         getInt(R.styleable.BallsProgressIndicator_third_ball_color, Color.BLUE)
                     ballRadius =
-                        getFloat(R.styleable.BallsProgressIndicator_ball_radius, 20f)
+                        getFloat(
+                            R.styleable.BallsProgressIndicator_ball_radius,
+                            context.pxToDp(10f)
+                        )
+
                     distanceBetween =
-                        getFloat(R.styleable.BallsProgressIndicator_distance_between, 100f)
+                        getFloat(
+                            R.styleable.BallsProgressIndicator_distance_between,
+                            context.pxToDp(200f)
+                        )
                     paneHeight =
-                        getFloat(R.styleable.BallsProgressIndicator_pane_height, 250f)
+                        getFloat(
+                            R.styleable.BallsProgressIndicator_pane_height,
+                            context.pxToDp(400f)
+                        )
                 }
             } finally {
                 typedArray.recycle()
